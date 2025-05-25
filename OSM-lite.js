@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OSM剪报系统lite Alt+C 快速生成 Markdown 链接（多站支持）
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.6
 // @description  Alt+C 快速复制当前页面标题和链接为 Markdown 格式，知乎支持清洗剪贴板并获取作者。
 // @match        *://*/*
 // @grant        none
@@ -32,7 +32,8 @@
                     console.error(err);
                     return;
                 }
-            } else {
+            }
+            else {
                 const rawTitle = document.title.trim();
                 const rawUrl = location.href;
                 let prefix = '';
@@ -42,7 +43,7 @@
                 if (host.includes('bilibili.com')) {
                     prefix = 'bili ';
                     if (path.startsWith('/video/')) {
-                        title = rawTitle.replace(/_哔哩哔哩_bilibili$/, '').trim();
+                        title = document.querySelector(".video-title")?.textContent.trim();
                     } else if (path.startsWith('/read/')) {
                         title = rawTitle.replace(/ - 哔哩哔哩$/, '').trim(); // 专栏后缀少一个"bilibili"
                     }
