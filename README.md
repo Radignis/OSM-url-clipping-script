@@ -1,4 +1,4 @@
-# OSM-
+# OSM剪报脚本
 油猴脚本 Alt+C 快速生成 Markdown 链接，OSM意为one step magic for oyasumi（令人安睡的快捷操作）  
 现已适配bilibili、YouTube、豆瓣、知乎、百度贴吧、小红书，其他网站用默认的方法适配  
 效果为`[平台名 标题](url)`  
