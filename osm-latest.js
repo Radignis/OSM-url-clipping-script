@@ -6,6 +6,9 @@
 // @match        *://*/*
 // @grant        GM_setClipboard
 // @license      MIT
+
+// @updateURL    https://raw.githubusercontent.com/Radignis/OSM-url-clipping-script/refs/heads/main/osm-latest.js
+// @downloadURL    https://raw.githubusercontent.com/Radignis/OSM-url-clipping-script/refs/heads/main/osm-latest.js
 // ==/UserScript==
 
 (function () {
