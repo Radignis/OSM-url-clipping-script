@@ -17,6 +17,7 @@
             const host = location.hostname;
             const path = location.pathname;
             let tostick = '';
+            let md = '';
 
             if (host.includes('zhihu.com')) {
                 try {
@@ -38,11 +39,13 @@
                         }
 
                         tostick = `<a href="${url}">知乎 ${title}</a>`;
+                        md = `[${title}](${url})`;
                     } else {
                         // 兜底
                         const title = document.title.replace(/\s*- 知乎$/, '').trim();
                         const url = location.href;
                         tostick = `<a href="${url}">知乎 ${title}</a>`;
+                        md = `[${title}](${url})`;
                     }
                 } catch (err) {
                     alert('❌ 无法读取剪贴板');
@@ -64,24 +67,31 @@
                         title = rawTitle.replace(/ - 哔哩哔哩$/, '').trim();
                     }
                     tostick = `<a href="${cleanUrl}">bili ${title}</a>`;
+                    md = `[${title}](${cleanUrl})`;
                 } else if (host.includes('youtube.com')) {
                     title = rawTitle.replace(/ - YouTube$/, '').trim();
                     cleanUrl = rawUrl.replace(/&?(list|start_radio|rv)=[^&]+/g, '').replace(/[?&]+$/, '');
                     tostick = `<a href="${cleanUrl}">ytb ${title}</a>`;
+                    md = `[${title}](${cleanUrl})`;
                 } else if (host.includes('xiaohongshu.com')) {
                     title = rawTitle.replace(/ - 小红书$/, '').trim();
                     tostick = `<a href="${cleanUrl}">xhs ${title}</a>`;
+                    md = `[${title}](${cleanUrl})`;
                 } else if (host.includes('tieba.baidu.com')) {
                     title = rawTitle.replace(/_百度贴吧$/, '').trim();
                     tostick = `<a href="${cleanUrl}">贴吧 ${title}</a>`;
+                    md = `[${title}](${cleanUrl})`;
                 } else if (host.includes('book.douban.com')) {
                     title = rawTitle.replace(/\(豆瓣\)$/, '豆瓣图书').trim();
                     tostick = `<a href="${cleanUrl}">${title} 豆瓣图书</a>`;
+                    md = `[${title}](${cleanUrl})`;
                 } else if (host.includes('movie.douban.com')) {
                     title = rawTitle.replace(/\(豆瓣\)$/, '豆瓣影视').trim();
                     tostick = `<a href="${cleanUrl}">${title}</a>`;
+                    md = `[${title}](${cleanUrl})`;
                 } else{
                     tostick = `<a href="${cleanUrl}">${title}</a>`;
+                    md = `[${title}](${cleanUrl})`;
                 }
 
             }
@@ -90,7 +100,7 @@
                 await navigator.clipboard.write([
                     new ClipboardItem({
                         "text/html": new Blob([tostick], { type: "text/html" }),
-                        "text/plain": new Blob([tostick], { type: "text/plain" })
+                        "text/plain": new Blob([md], { type: "text/plain" })
                     })
                 ]);
 
