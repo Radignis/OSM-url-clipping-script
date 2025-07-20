@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         OSM剪报系统lite Alt+C 生成 HTML 链接（多站支持）
 // @namespace    http://tampermonkey.net/
-// @version      1.7
+// @version      1.8
 // @description  Alt+C 快速复制当前页面标题和链接为 HTML 链接格式。
 // @match        *://*/*
+// @match        file:///*
 // @grant        GM_setClipboard
 // @license      MIT
 
@@ -15,10 +16,12 @@
     'use strict';
 
     window.addEventListener('keydown', async (e) => {
+        console.log('检测到按键事件:', e.altKey, e.code); // 添加这一行
         if (e.altKey && e.code === 'KeyC') {
             e.preventDefault();
             const host = location.hostname;
             const path = location.pathname;
+            const protocol = location.protocol;
             let tostick = '';
             let md = '';
 
@@ -98,7 +101,6 @@
                 }
 
             }
-
             try {
                 await navigator.clipboard.write([
                     new ClipboardItem({
@@ -106,11 +108,10 @@
                         "text/plain": new Blob([md], { type: "text/plain" })
                     })
                 ]);
-
                 showToast('✅ 已复制 HTML 链接');
             } catch (err) {
-                alert('❌ 无法写入剪贴板');
-                console.error(err);
+                prompt('📋 http无法直接写入剪贴板，请手动复制以下Markdown格式：', md);
+
             }
         }
     });
